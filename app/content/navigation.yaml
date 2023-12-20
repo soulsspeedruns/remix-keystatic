@@ -1,0 +1,8 @@
+navGroups:
+  - groupName: Dark Souls
+    items:
+      - label: Getting started
+        link:
+          discriminant: page
+          value: darksouls
+        isNew: false
