@@ -1,5 +1,4 @@
 import { useNavigate } from '@remix-run/react'
-import { useEffect, useState } from 'react'
 import { ClientOnly } from 'remix-utils/client-only'
 import {
 	CommandDialog,
@@ -25,19 +24,19 @@ function ClientSearch() {
 			}
 		}
 
-		loadPagefind()
-	}, [])
+		open && loadPagefind()
+	}, [open])
 
 	useEffect(() => {
 		function onKeyDown(event: KeyboardEvent) {
 			if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
-				setOpen(!open)
+				setOpen((open) => !open)
 			}
 		}
 
 		window.addEventListener('keydown', onKeyDown)
 		return () => window.removeEventListener('keydown', onKeyDown)
-	}, [open])
+	}, [])
 
 	return (
 		<CommandDialog open={open} onOpenChange={setOpen} shouldFilter={false}>
@@ -52,6 +51,8 @@ function ClientSearch() {
 						})),
 					)
 
+					console.log(awaited)
+
 					setResults(awaited)
 				}}
 				placeholder='Type a command or search...'
@@ -64,7 +65,7 @@ function ClientSearch() {
 							<CommandItem
 								key={result.id}
 								onSelect={() => {
-									navigate(result.data.raw_url)
+									navigate(result.data.url)
 									setOpen(false)
 								}}
 							>
