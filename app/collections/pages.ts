@@ -4,6 +4,7 @@ export const pages = collection({
 	label: 'Pages',
 	slugField: 'title',
 	path: 'app/content/pages/**',
+	previewUrl: '/preview/start?branch={branch}&to=/{slug}',
 	entryLayout: 'content',
 	format: {
 		contentField: 'content',

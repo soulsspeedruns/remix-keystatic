@@ -4,9 +4,15 @@ import { pages } from '~/collections/pages'
 import { navigation } from '~/singletons/navigation'
 
 export default config({
-	storage: {
-		kind: 'local',
-	},
+	storage: import.meta.env.DEV
+		? {
+				kind: 'local',
+		  }
+		: {
+				kind: 'github',
+				repo: 'soulsspeedruns/remix-keystatic',
+				branchPrefix: 'wiki/',
+		  },
 	ui: {
 		brand: { name: 'Souls Speedruns' },
 	},

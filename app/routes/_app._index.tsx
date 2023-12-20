@@ -1,4 +1,4 @@
-import type { MetaFunction } from '@remix-run/node'
+import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 import { createReader } from '~/lib/utils'
 
@@ -9,8 +9,8 @@ export const meta: MetaFunction<typeof loader> = () => {
 	]
 }
 
-export async function loader() {
-	const reader = createReader()
+export async function loader({ request }: LoaderFunctionArgs) {
+	const reader = await createReader(request)
 	const posts = await reader.collections.pages.all()
 
 	return {

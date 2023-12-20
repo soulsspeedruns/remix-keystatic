@@ -1,8 +1,9 @@
-import { Link, Outlet, useLoaderData } from '@remix-run/react'
+import { LoaderFunctionArgs } from '@remix-run/node'
+import { Link, useLoaderData } from '@remix-run/react'
 import { createReader } from '~/lib/utils'
 
-export async function loader() {
-	const reader = createReader()
+export async function loader({ request }: LoaderFunctionArgs) {
+	const reader = await createReader(request)
 	const games = await reader.collections.games.all()
 
 	return {
