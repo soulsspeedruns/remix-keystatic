@@ -16,12 +16,11 @@ if (!index) {
 
 const reader = createLocalReader()
 
-const pages = await reader.collections.pages.all({
-	resolveLinkedFiles: true,
-})
+const pages = await reader.collections.pages.all()
 
-const promises = pages.map((page) => {
-	const { content } = toFormatted(page.entry.content)
+const promises = pages.map(async (page) => {
+	const raw = await page.entry.content()
+	const { content } = toFormatted(raw)
 
 	const html = renderToString(
 		<html lang='en'>
@@ -40,8 +39,6 @@ const promises = pages.map((page) => {
 			</body>
 		</html>,
 	)
-
-	console.log(html)
 
 	return index.addHTMLFile({
 		url: `/${page.slug}`,

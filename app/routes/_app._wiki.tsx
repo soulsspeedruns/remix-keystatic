@@ -15,15 +15,17 @@ export default function Page() {
 	const { navigation } = useLoaderData<typeof loader>()
 
 	return (
-		<div className='flex gap-3'>
-			<aside>
+		<main className='container mx-auto mt-16 grid grid-cols-10'>
+			<aside className="fixed top-16 col-span-2 hidden h-[calc(100vh-theme('spacing.16'))] w-full border-r py-2 pr-2 md:sticky md:block">
 				<ul>
 					{navigation?.navGroups.map((group, key) => (
 						<li key={`${group.groupName}_${key}`}>{group.groupName}</li>
 					))}
 				</ul>
 			</aside>
-			<Outlet />
-		</div>
+			<div className='col-span-8'>
+				<Outlet />
+			</div>
+		</main>
 	)
 }

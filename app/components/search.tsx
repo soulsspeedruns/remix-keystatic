@@ -1,5 +1,6 @@
 import { useNavigate } from '@remix-run/react'
 import { ClientOnly } from 'remix-utils/client-only'
+import { SearchButton } from '~/components/search-button'
 import {
 	CommandDialog,
 	CommandEmpty,
@@ -39,46 +40,51 @@ function ClientSearch() {
 	}, [])
 
 	return (
-		<CommandDialog open={open} onOpenChange={setOpen} shouldFilter={false}>
-			<CommandInput
-				onInput={async (e) => {
-					const search = await window.pagefind.search(e.currentTarget.value)
+		<>
+			<SearchButton onClick={() => setOpen(true)} />
+			<CommandDialog open={open} onOpenChange={setOpen} shouldFilter={false}>
+				<CommandInput
+					onInput={async (e) => {
+						const search = await window.pagefind.search(e.currentTarget.value)
 
-					const awaited = await Promise.all(
-						search?.results.map(async (result) => ({
-							...result,
-							data: await result.data(),
-						})),
-					)
+						const awaited = await Promise.all(
+							search?.results.map(async (result) => ({
+								...result,
+								data: await result.data(),
+							})),
+						)
 
-					console.log(awaited)
+						console.log(awaited)
 
-					setResults(awaited)
-				}}
-				placeholder='Type a command or search...'
-			/>
-			<CommandList>
-				<CommandEmpty>No results found.</CommandEmpty>
-				{results.length > 0 && (
-					<CommandGroup heading='Suggestions'>
-						{results.map((result) => (
-							<CommandItem
-								key={result.id}
-								onSelect={() => {
-									navigate(result.data.url)
-									setOpen(false)
-								}}
-							>
-								<span
-									// biome-ignore lint/security/noDangerouslySetInnerHtml: results from pagefind
-									dangerouslySetInnerHTML={{ __html: result.data.excerpt }}
-								/>
-							</CommandItem>
-						))}
-					</CommandGroup>
-				)}
-			</CommandList>
-		</CommandDialog>
+						setResults(awaited)
+					}}
+					placeholder='Type a command or search...'
+				/>
+				<CommandList>
+					<CommandEmpty>No results found.</CommandEmpty>
+					{results.length > 0 && (
+						<CommandGroup heading='Suggestions'>
+							{results.map((result) => (
+								<CommandItem
+									key={result.id}
+									className='h-14 cursor-pointer overflow-hidden truncate'
+									onSelect={() => {
+										navigate(result.data.url)
+										setOpen(false)
+									}}
+								>
+									<span
+										className='whitespace-nowrap [&_mark]:bg-transparent [&_mark]:text-current [&_mark]:underline [&_mark]:underline-offset-2'
+										// biome-ignore lint/security/noDangerouslySetInnerHtml: results from pagefind
+										dangerouslySetInnerHTML={{ __html: result.data.excerpt }}
+									/>
+								</CommandItem>
+							))}
+						</CommandGroup>
+					)}
+				</CommandList>
+			</CommandDialog>
+		</>
 	)
 }
 
