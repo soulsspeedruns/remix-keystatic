@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs } from '@remix-run/node'
 import { Outlet, useLoaderData } from '@remix-run/react'
-import { Search } from '~/components/search'
+import { Navbar } from '~/components/navbar'
 import * as draftMode from '~/cookies/draft.server'
 import keystaticConfig from '../../keystatic.config'
 
@@ -17,13 +17,8 @@ export default function App() {
 	const { branch } = useLoaderData<typeof loader>()
 
 	return (
-		<div>
-			<Search />
-			<nav>
-				<ul>
-					<li>Hello</li>
-				</ul>
-			</nav>
+		<>
+			<Navbar className='fixed left-0 right-0 top-0 h-16 mr-[var(--removed-body-scroll-bar-size)]' />
 			<Outlet />
 			{branch && (
 				<div>
@@ -33,6 +28,6 @@ export default function App() {
 					</form>
 				</div>
 			)}
-		</div>
+		</>
 	)
 }

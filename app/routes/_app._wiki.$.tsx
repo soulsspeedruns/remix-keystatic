@@ -74,8 +74,8 @@ export default function Page() {
 	const { title, content, editUrl, headings } = useLoaderData<typeof loader>()
 
 	return (
-		<div className='flex gap-3'>
-			<article className='prose max-w-none'>
+		<div className='grid grid-cols-8'>
+			<article className='prose col-span-8 max-w-none px-4 py-2 dark:prose-invert md:col-span-6'>
 				<h1>{title}</h1>
 				<DocumentRenderer
 					document={content}
@@ -91,17 +91,22 @@ export default function Page() {
 						},
 					}}
 				/>
-				<Link to={editUrl}>Edit this page</Link>
 			</article>
-			<aside>
-				<h2>On this page</h2>
-				<ul>
-					{headings.map(({ level, text, slug }) => (
-						<li key={text}>
-							<a href={`#${slug}`}>{text}</a>
-						</li>
-					))}
-				</ul>
+			<aside className="col-span-2 hidden min-h-[calc(100vh-theme('spacing.16'))] border-l px-4 py-2 md:block">
+				{headings.length > 0 && (
+					<>
+						<h4 className='font-bold'>On This Page</h4>
+						<ul className='mb-3 border-b pb-3'>
+							{headings.map(({ level, text, slug }) => (
+								<li key={text}>
+									<a href={`#${slug}`}>{text}</a>
+								</li>
+							))}
+						</ul>
+					</>
+				)}
+
+				<Link to={editUrl}>Edit this page</Link>
 			</aside>
 		</div>
 	)
