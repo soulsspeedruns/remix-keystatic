@@ -1,7 +1,5 @@
 import * as pagefind from 'pagefind'
-
 import { DocumentRenderer } from '@keystatic/core/renderer'
-import slugify from '@sindresorhus/slugify'
 import { renderToString } from 'react-dom/server'
 import { toFormatted } from '~/lib/markdoc.server'
 import { createLocalReader } from '~/lib/utils'
@@ -16,9 +14,9 @@ if (!index) {
 
 const reader = createLocalReader()
 
-const pages = await reader.collections.pages.all()
+const allPages = await reader.collections.pages.all()
 
-const promises = pages.map(async (page) => {
+const promises = allPages.map(async (page) => {
 	const raw = await page.entry.content()
 	const { content } = toFormatted(raw)
 
