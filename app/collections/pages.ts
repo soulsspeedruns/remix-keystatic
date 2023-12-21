@@ -1,10 +1,15 @@
 import { collection, fields } from '@keystatic/core'
 
+function previewUrl(to: string) {
+	if (process.env.NODE_ENV === 'development') return to
+	return `/preview/start?branch={branch}&to=${to}`
+}
+
 export const pages = collection({
 	label: 'Pages',
 	slugField: 'title',
 	path: 'app/content/pages/**',
-	previewUrl: '/preview/start?branch={branch}&to=/{slug}',
+	previewUrl: previewUrl('/{slug}'),
 	entryLayout: 'content',
 	format: {
 		contentField: 'content',
@@ -22,8 +27,8 @@ export const pages = collection({
 			links: true,
 			tables: true,
 			images: {
-				directory: 'app/assets/images/docs',
-				publicPath: '../assets/images/docs',
+				directory: 'public/pages',
+				publicPath: '/pages',
 			},
 		}),
 	},

@@ -1,7 +1,7 @@
-import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
 import { DiscordLogoIcon } from '@radix-ui/react-icons'
-import { Link, useLoaderData } from '@remix-run/react'
 import { ArrowRightIcon } from '@radix-ui/react-icons'
+import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
+import { Link, useLoaderData } from '@remix-run/react'
 import { Button } from '~/components/ui/button'
 import { createReader } from '~/lib/utils'
 
@@ -15,6 +15,8 @@ export const meta: MetaFunction<typeof loader> = () => {
 export async function loader({ request }: LoaderFunctionArgs) {
 	const reader = await createReader(request)
 	const games = await reader.collections.games.all()
+
+	console.log(games[1].entry.assets)
 
 	return {
 		games,
