@@ -4,15 +4,16 @@ import { pages } from '~/collections/pages'
 import { navigation } from '~/singletons/navigation'
 
 export default config({
-	storage: import.meta.env.DEV
-		? {
-				kind: 'local',
-		  }
-		: {
-				kind: 'github',
-				repo: 'soulsspeedruns/remix-keystatic',
-				branchPrefix: 'wiki/',
-		  },
+	storage:
+		process.env.NODE_ENV === 'development'
+			? {
+					kind: 'local',
+			  }
+			: {
+					kind: 'github',
+					repo: 'soulsspeedruns/remix-keystatic',
+					branchPrefix: 'wiki/',
+			  },
 	ui: {
 		brand: { name: 'Souls Speedruns' },
 	},

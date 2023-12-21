@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs, MetaFunction } from '@remix-run/node'
 import { DiscordLogoIcon } from '@radix-ui/react-icons'
 import { Link, useLoaderData } from '@remix-run/react'
-import { ArrowRightIcon } from 'lucide-react'
+import { ArrowRightIcon } from '@radix-ui/react-icons'
 import { Button } from '~/components/ui/button'
 import { createReader } from '~/lib/utils'
 
@@ -60,6 +60,7 @@ export default function Index() {
 			<section className='grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3'>
 				{games.map((game) => (
 					<Link
+						key={game.slug}
 						to={`/${game.entry.homepage}`}
 						className='group relative aspect-video overflow-hidden rounded-lg'
 					>

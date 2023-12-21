@@ -1,5 +1,5 @@
 import { makePage } from '@keystatic/remix/ui'
-import { Loader2 } from 'lucide-react'
+import { UpdateIcon } from '@radix-ui/react-icons'
 import { ClientOnly } from 'remix-utils/client-only'
 import config from '../../keystatic.config'
 
@@ -30,7 +30,7 @@ export default function Keystatic() {
 						dangerouslySetInnerHTML={{ __html: string }}
 					/>
 					<div>
-						<Loader2 className='animate-spin' />
+						<UpdateIcon className='animate-spin' />
 					</div>
 				</div>
 			}

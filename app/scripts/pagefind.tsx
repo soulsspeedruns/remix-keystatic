@@ -2,10 +2,7 @@ import * as pagefind from 'pagefind'
 import { DocumentRenderer } from '@keystatic/core/renderer'
 import { renderToString } from 'react-dom/server'
 import { toFormatted } from '~/lib/markdoc.server'
-import { createReader } from '@keystatic/core/reader'
-import { games } from '~/collections/games'
-import { pages } from '~/collections/pages'
-import { navigation } from '~/singletons/navigation'
+import { createLocalReader } from '~/lib/utils'
 
 const { index } = await pagefind.createIndex({
 	forceLanguage: 'en',
@@ -15,18 +12,7 @@ if (!index) {
 	throw new Error('failed to create index')
 }
 
-const reader = createReader(process.cwd(), {
-	storage: {
-		kind: 'local',
-	},
-	collections: {
-		pages,
-		games,
-	},
-	singletons: {
-		navigation,
-	},
-})
+const reader = createLocalReader()
 
 const allPages = await reader.collections.pages.all()
 
