@@ -11,6 +11,7 @@ import * as draftMode from '~/cookies/draft.server'
 import { toFormatted } from '~/lib/markdoc.server'
 import { createReader } from '~/lib/utils'
 import keystaticConfig from '../../keystatic.config'
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
 	if (data) {
@@ -106,7 +107,10 @@ export default function Page() {
 					</>
 				)}
 
-				<Link to={editUrl}>Edit this page</Link>
+				<Link to={editUrl} className='flex items-center gap-1'>
+					<GitHubLogoIcon />
+					Edit this page
+				</Link>
 			</aside>
 		</div>
 	)
