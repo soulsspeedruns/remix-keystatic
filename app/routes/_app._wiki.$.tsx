@@ -1,4 +1,5 @@
 import { DocumentRenderer } from '@keystatic/core/renderer'
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { LoaderFunctionArgs } from '@remix-run/node'
 import {
 	Link,
@@ -11,7 +12,6 @@ import * as draftMode from '~/cookies/draft.server'
 import { toFormatted } from '~/lib/markdoc.server'
 import { createReader } from '~/lib/utils'
 import keystaticConfig from '../../keystatic.config'
-import { GitHubLogoIcon } from '@radix-ui/react-icons'
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
 	if (data) {
