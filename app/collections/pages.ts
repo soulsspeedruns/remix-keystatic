@@ -18,6 +18,18 @@ export const pages = collection({
 		title: fields.slug({
 			name: {
 				label: 'Title',
+				validation: {
+					length: {
+						min: 0,
+					},
+				},
+			},
+			slug: {
+				validation: {
+					length: {
+						min: 0,
+					},
+				},
 			},
 		}),
 		content: fields.document({
