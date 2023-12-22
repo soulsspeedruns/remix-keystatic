@@ -20,8 +20,8 @@ export const games = collection({
 		assets: fields.object({
 			background: fields.image({
 				label: 'Background',
-				directory: 'app/assets/images/games',
-				publicPath: '../assets/images/games',
+				directory: 'public/games',
+				publicPath: '/games',
 			}),
 		}),
 	},

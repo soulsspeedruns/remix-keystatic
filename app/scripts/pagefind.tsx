@@ -1,5 +1,5 @@
-import * as pagefind from 'pagefind'
 import { DocumentRenderer } from '@keystatic/core/renderer'
+import * as pagefind from 'pagefind'
 import { renderToString } from 'react-dom/server'
 import { toFormatted } from '~/lib/markdoc.server'
 import { createLocalReader } from '~/lib/utils'

@@ -1,5 +1,5 @@
 import { useNavigate } from '@remix-run/react'
-import { ClientOnly } from 'remix-utils/client-only'
+import { useHydrated } from 'remix-utils/use-hydrated'
 import { SearchButton } from '~/components/search-button'
 import {
 	CommandDialog,
@@ -11,7 +11,8 @@ import {
 } from '~/components/ui/command'
 import { type PagefindDocument, importPagefind } from '~/lib/pagefind'
 
-function ClientSearch() {
+export function Search() {
+	const hydrated = useHydrated()
 	const navigate = useNavigate()
 	const [open, setOpen] = useState(false)
 	const [results, setResults] = useState<
@@ -41,7 +42,7 @@ function ClientSearch() {
 
 	return (
 		<>
-			<SearchButton onClick={() => setOpen(true)} />
+			<SearchButton disabled={!hydrated} onClick={() => setOpen(true)} />
 			<CommandDialog open={open} onOpenChange={setOpen} shouldFilter={false}>
 				<CommandInput
 					onInput={async (e) => {
@@ -86,8 +87,4 @@ function ClientSearch() {
 			</CommandDialog>
 		</>
 	)
-}
-
-export function Search() {
-	return <ClientOnly fallback={null}>{() => <ClientSearch />}</ClientOnly>
 }

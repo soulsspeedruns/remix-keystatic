@@ -1,4 +1,5 @@
 import { DocumentRenderer } from '@keystatic/core/renderer'
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { LoaderFunctionArgs } from '@remix-run/node'
 import {
 	Link,
@@ -106,7 +107,10 @@ export default function Page() {
 					</>
 				)}
 
-				<Link to={editUrl}>Edit this page</Link>
+				<Link to={editUrl} className='flex items-center gap-1'>
+					<GitHubLogoIcon />
+					Edit this page
+				</Link>
 			</aside>
 		</div>
 	)
